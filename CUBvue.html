@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="language" content="zh-tw,zh-hk,zh-cn">
+		<meta http-equiv="content-language" content="zh-tw">
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		
+		<title>CUB</title>
+		
+		<link rel="stylesheet" href="css/index.css">
+		<script src = "https://unpkg.com/vue@2.6.12/dist/vue.js"></script>
+		<script src = "js/CUBvue.js"></script>
+	</head>
+	<body>
+		<div id = "app">
+			<div class = "box">			
+				<div class = "boxRun" >
+					<div class = "title" >					
+						<div class = "text" >進行中</div>						
+					</div>
+					<div class = 'item' v-for="item in dataTransfer" v-if="item.status.code == 1 || item.status.code == 2">
+						<div class = 'logo'><img :src="item.logo"/></div>
+						<div class = 'content'>
+							<div class = 'status' v-text = "item.status.type"></div>
+							<div class = 'date' >預計出貨：{{item.date}}</div>
+							<div class = 'name' v-text = "item.name"></div>
+						</div>
+						<div class = 'arrow' v-html = "svg"></div>
+					</div>
+				</div>			
+				<div class = "boxDone" >
+					<div class = "title" >
+						<div class = "text" >已完成</div>
+					</div>
+					<div class = 'item' v-for="item in dataTransfer" v-if="item.status.code == 3 || item.status.code == 4">
+						<div class = 'logo'><img :src="item.logo"/></div>
+						<div class = 'content'>
+							<div class = 'status' v-text = "item.status.type"></div>
+							<div class = 'date' v-text = "item.date"></div>
+							<div class = 'name' v-text = "item.name"></div>
+						</div>
+						<div class = 'arrow' v-html = "svg"></div>
+					</div>
+				</div>			
+			</div>
+		</div>
+	</body>
+	
+	<script type = "text/javascript">
+		var app = new Vue({
+			el : "#app" ,
+			data:  {
+					
+					orders: [
+						{
+							name: 'Livi優活 抽取式衛生紙(100抽x10包x10串/箱)',
+							logo: 'https://static.oopocket.com/store/iconTreemall@3x.png',
+							status: {
+							  code: 3,
+							  type: '已取消'
+							},
+							date: '107/6/12'
+						},
+						{
+							name: 'BALMUDA The Toaster 百慕達烤麵包機-黑色',
+							logo: 'https://static.oopocket.com/store/iconTreemall@3x.png',
+							status: {
+							  code: 2,
+							  type: '已成立'
+							},
+							date: '108/7/21'
+						},
+						{
+							name: '贈-短慧萬用鍋HD2133+三合一濾網「LG樂金」韓國原裝...',
+							logo: 'https://static.oopocket.com/store/iconTreemall@3x.png',
+							status: {
+							  code: 1,
+							  type: '處理中'
+							},
+							date: '108/6/2'
+						 },
+						 {
+							name: 'Apple AirPds 2',
+							logo: 'https://static.oopocket.com/store/iconTreemall@3x.png',
+							status: {
+							  code: 4,
+							  type: '已送達'
+							},
+							date: '108/3/02'
+						}
+					],
+					
+					svg : '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30px" height="28px" viewBox="0 0 50 80" xml:space="preserve"><polyline fill="none" stroke="#929292" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" points="12.575,0.575 45.63,38.087 12.575,76.0 "/></svg>',
+			},
+			
+			computed:{
+				dataTransfer: function(data){
+					var dataTemp = data['orders'];
+	
+					//日期格式處理
+					
+					for(var i=0 ; i < dataTemp.length; i++){
+						var dateSplit = dataTemp[i].date.split('/');		
+						var year = dateSplit[0];
+						var month = dateSplit[1];
+						var day = dateSplit[2];
+						if(month.length == 1){
+							month = "0" +month;
+						}
+						if(day.length == 1){
+							day = "0" +day;
+						}
+						dataTemp[i].date = year +'/'+ month +'/'+ day;
+						
+						
+					}
+					//日期排序
+					dataTemp = dataTemp.sort(function(a, b){
+						return a.date < b.date ? 1 : -1;
+					});
+					
+					return dataTemp;
+				}
+			}
+		});
+	</script>
+	
+</html>
