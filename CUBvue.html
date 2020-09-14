@@ -10,6 +10,9 @@
 		
 		<link rel="stylesheet" href="css/index.css">
 		<script src = "https://unpkg.com/vue@2.6.12/dist/vue.js"></script>
+		<script src="https://code.jquery.com/jquery-3.5.1.js"
+		  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+		  crossorigin="anonymous"></script>
 		<script src = "js/CUBvue.js"></script>
 	</head>
 	<body>
@@ -19,28 +22,32 @@
 					<div class = "title" >					
 						<div class = "text" >進行中</div>						
 					</div>
-					<div class = 'item' v-for="item in dataTransfer" v-if="item.status.code == 1 || item.status.code == 2">
-						<div class = 'logo'><img :src="item.logo"/></div>
-						<div class = 'content'>
-							<div class = 'status' v-text = "item.status.type"></div>
-							<div class = 'date' >預計出貨：{{item.date}}</div>
-							<div class = 'name' v-text = "item.name"></div>
+					<div class = "items" >
+						<div class = 'item' v-for="item in dataTransfer" v-if="item.status.code == 1 || item.status.code == 2">
+							<div class = 'logo'><img :src="item.logo"/></div>
+							<div class = 'content'>
+								<div class = 'status' v-text = "item.status.type"></div>
+								<div class = 'date' >預計出貨：{{item.date}}</div>
+								<div class = 'name' v-text = "item.name"></div>
+							</div>
+							<div class = 'arrow' v-html = "svg"></div>
 						</div>
-						<div class = 'arrow' v-html = "svg"></div>
 					</div>
 				</div>			
 				<div class = "boxDone" >
 					<div class = "title" >
 						<div class = "text" >已完成</div>
 					</div>
-					<div class = 'item' v-for="item in dataTransfer" v-if="item.status.code == 3 || item.status.code == 4">
-						<div class = 'logo'><img :src="item.logo"/></div>
-						<div class = 'content'>
-							<div class = 'status' v-text = "item.status.type"></div>
-							<div class = 'date' v-text = "item.date"></div>
-							<div class = 'name' v-text = "item.name"></div>
+					<div class = "items" >
+						<div class = 'item' v-for="item in dataTransfer" v-if="item.status.code == 3 || item.status.code == 4">
+							<div class = 'logo'><img :src="item.logo"/></div>
+							<div class = 'content'>
+								<div class = 'status' v-text = "item.status.type"></div>
+								<div class = 'date' v-text = "item.date"></div>
+								<div class = 'name' v-text = "item.name"></div>
+							</div>
+							<div class = 'arrow' v-html = "svg"></div>
 						</div>
-						<div class = 'arrow' v-html = "svg"></div>
 					</div>
 				</div>			
 			</div>

@@ -1,7 +1,7 @@
 window.onload = function(){
 
 	var app = new Vue({
-		el : "#app" ,
+		el : ".box" ,
 		data:  {
 				
 			orders: [
@@ -46,6 +46,7 @@ window.onload = function(){
 			svg : '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30px" height="28px" viewBox="0 0 50 80" xml:space="preserve"><polyline fill="none" stroke="#929292" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" points="12.575,0.575 45.63,38.087 12.575,76.0 "/></svg>',
 		},
 		
+		
 		computed:{
 			dataTransfer: function(data){
 				var dataTemp = data['orders'];
@@ -73,5 +74,8 @@ window.onload = function(){
 				return dataTemp;
 			}
 		}
+	});
+	$('.title').click(function(){
+		$(this).next('div').slideToggle();		
 	});
 };

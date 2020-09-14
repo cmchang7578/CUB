@@ -45,6 +45,11 @@ $(function(){
 	var dataTemp = dataTransfer( data );
 	
 	dataView(dataTemp);
+	
+	$('.title').click(function(){
+		$(this).next('div').slideToggle();		
+	});
+	
 });
 
 function dataTransfer( data ){
@@ -92,9 +97,9 @@ function dataView( data ){
 		+'</div>';
 
 		if(value.status.code==1 || value.status.code==2 ){
-			$('.boxRun').append(template);		
+			$('.boxRun > .items').append(template);		
 		}else if(value.status.code==3 || value.status.code==4 ){
-			$('.boxDone').append(template);
+			$('.boxDone > .items').append(template);
 		}
 	});
 }
